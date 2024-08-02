@@ -1,0 +1,214 @@
+import React from 'react';
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { useState } from 'react';
+
+
+const PricingPlan = ({ id, title, description, features, price }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  return (
+    <div
+      className={`group bg-white shadow-md rounded-3xl hover:bg-[#020887] hover:duration-500 hover:text-white p-6 m-4 w-64 relative ${isFlipped ? 'flip' : ''}`}
+    >
+      <div className="relative flex items-center justify-between">
+        <h4 className="text-2xl font-bold mb-4">{id}</h4>
+        <BsBoxArrowUpRight
+          className="text-1xl absolute right-0 cursor-pointer text-white group-hover:text-[#50E690]"
+          onClick={handleFlip}
+        />
+      </div>
+
+      <div className={`card ${isFlipped ? 'flipped' : ''}`}>
+        <div className="card-front">
+          <h3 className="text-2xl font-bold text-blue-900 group-hover:text-[#50E690]">
+            {title}
+          </h3>
+          <p className="text-gray-400">{description}</p>
+          <ul className="mt-4 space-y-2 list-disc pl-4 text-sm">
+            {features.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
+          <p className="text-md font-bold text-blue-900 mt-10 group-hover:text-[#50E690]">
+            {price}
+          </p>
+        </div>
+        <div className="card-back">
+          <h3 className="text-2xl font-bold text-blue-900 group-hover:text-[#50E690] mb-4">
+            Additional Information
+          </h3>
+          <p className="text-gray-400">
+            This is the back side of the card, where you can add more information
+            about the pricing plan.
+          </p>
+        </div>
+      </div>
+
+      <div
+        className={`absolute -bottom-10 left-0 right-0 bg-transparent rounded-b-3xl p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+          isFlipped ? 'hidden' : ''
+        }`}
+      >
+        <button className="bg-[#50E690] text-white py-2 px-8 rounded-3xl ml-10 ">
+          Order Now
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const PricingPage = () => {
+  const pricingPlans = [
+    {
+        symbol:<BsBoxArrowUpRight />,
+        id: "01",
+      title: 'Standard',
+      description: 'Great Choice for Personal Uses',
+      features: [
+        '60 GB NVMe Storage',
+        '2 GB RAM & 2 CPU Cores',
+        '500 GB Bandwidth',
+        '10 Databases and Email accounts',
+        'Host 5 Websites',
+      ],
+      price: '273 birr/month',
+    },
+    {
+        id: "02",
+        title: 'Professional',
+        description: 'Best For Developers',
+        features: [
+          '680 GB NVMe Storage',
+          '2 GB RAM & 2 CPU Cores',
+          'Unlimited Bandwidth',
+          'Unlimited Databases and Email accounts',
+          'Host 10 Websites',
+        ],
+        price: '330 birr/month',
+      },
+      {
+        id: "03",
+        title: 'Enterprise',
+        description: 'Best For Business',
+        features: [
+          '125 GB NVMe Storage',
+          '2 GB RAM & 2 CPU Cores',
+          'Unlimited Bandwidth',
+          'Unlimited Databases and Email accounts',
+          'Host 13 Websites',
+        ],
+        price: '410 birr/month',
+      },
+      {
+        id: "04",
+        title: 'Enterprise PLUS',
+        description: 'Best for Large Website',
+        features: [
+          '60 GB NVMe Storage',
+          '4 GB RAM & 2 CPU Cores',
+          'Unlimited GB Bandwidth',
+          'Unlimited Databases and Email accounts',
+          'Host 15 Websites',
+        ],
+        price: '485 birr/month',
+      },
+    
+  ];
+
+  return (
+    
+    <div className="justify-center">
+        <div className="w-full bg-white flex flex-col justify-between ml-24">
+            <div className='grid md:grid-cols-3 max-w-[1240px] m-auto'>
+        <div className='flex flex-col justify-center md:items-start w-full px-2 py-6'>
+            <p className="font-semibold text-[#4A6D7C] mt-16">- Price Plan</p>
+            <p className='md:text-4xl font-bold text-2xl item-center'><span className='text-[#50E690]'>Fastest</span> Web Hosting in Ethiopia.</p>
+        </div>
+        
+        </div>
+        <div className='ml-5'>
+            <p><span className='font-bold'>Planning to Have Your Website? You're at The Right Place!</span> <br />
+            Check Our Affordable Web Hosting Packages and Go with The One That Suits Your Needs.</p>
+        </div>
+        </div>
+        <div className='flex justify-center mt-10'>
+        {pricingPlans.map((plan, index) => (
+        <PricingPlan
+          key={index}
+          id={plan.id}
+          title={plan.title}
+          description={plan.description}
+          features={plan.features}
+          price={plan.price}
+        />
+      ))}
+    </div>
+  
+  <p className='text-sm font-bold ml-20 mt-6 cursor-pointer hover:text-[#50E690] mb-20'>Explore all price plans</p>
+        </div>
+     
+)};
+
+export default PricingPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import Logo from '../assets/Logo.png';
+
+const Navbar = () => {
+  const [nav, setNav] = useState(false);
+
+  const handleNav = () => {
+    setNav(!nav);
+  };
+
+  return (
+    <div className="flex justify-between items-center h-24 mx-auto px-14 bg-white w-full">
+      <a href="#"><img src={Logo} alt="Logo" className="w-24" /></a>
+      <ul className="hidden md:flex">
+        <li className="p-4 text-sm font-bold"><a href="#">Web-Hosting</a></li>
+        <li className="p-4 text-sm font-bold"><a href="#">Pricing</a></li>
+        <li className="p-4 text-sm font-bold"><a href="#">About Us</a></li>
+      </ul>
+      <div className="md:hidden" onClick={handleNav}>
+        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+      </div>
+      <div
+        className={
+          nav
+            ? 'fixed left-0 top-0 w-[40%] h-full border-r border-r-bisque-900 bg-[#ffff] ease-in-out duration-500'
+            : 'fixed left-[-100%]'
+        }
+      >
+        <img src={Logo} alt="Logo" className="w-28 mt-20 ml-7" />
+        <ul className="p-4 mt-6 ml-3">
+          <li className="p-4 text-sm font-bold"><a href="#">Web-Hosting</a></li>
+          <li className="p-4 text-sm font-bold"><a href="#">Pricing</a></li>
+          <li className="p-4 text-sm font-bold"><a href="#">About Us</a></li>
+        </ul>
+      </div>
+      <button className="text-sm font-bold rounded-3xl bg-[#50E690] hover:bg-[#29804f] py-2 px-7 hover:duration-300">
+        Login
+      </button>
+    </div>
+  );
+};
+
+export default Navbar;
